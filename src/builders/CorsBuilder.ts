@@ -1,9 +1,5 @@
-import type {EnumItem} from "@bejibun/utils/facades/Enum";
 import App from "@bejibun/app";
-import Enum from "@bejibun/utils/facades/Enum";
-import HttpMethodEnum from "@bejibun/utils/enums/HttpMethodEnum";
 import fs from "fs";
-import CorsHeaderEnum from "@/enums/CorsHeaderEnum";
 
 export type CorsHeader = {
     "Access-Control-Allow-Origin": string;
@@ -27,12 +23,20 @@ export default class CorsBuilder {
     public init(): any {
         const headers: CorsHeader = {
             "Access-Control-Allow-Origin": this.config.origin,
-            "Access-Control-Allow-Headers": Array.isArray(this.config.allowedHeaders)
-                ? this.config.allowedHeaders.join(", ")
-                : Enum.setEnums(CorsHeaderEnum).toArray().map((value: EnumItem) => value.value).join(", "),
-            "Access-Control-Allow-Methods": Array.isArray(this.config.methods)
-                ? this.config.methods.join(", ")
-                : Enum.setEnums(HttpMethodEnum).toArray().map((value: EnumItem) => value.value).join(", ")
+            "Access-Control-Allow-Headers": Array.isArray(this.config.allowedHeaders) ?
+                (
+                    this.config.allowedHeaders.includes("*") ? "*" : this.config.allowedHeaders.join(", ")
+                ) :
+                (
+                    this.config.allowedHeaders === "*" ? "*" : this.config.allowedHeaders
+                ),
+            "Access-Control-Allow-Methods": Array.isArray(this.config.methods) ?
+                (
+                    this.config.methods.includes("*") ? "*" : this.config.methods.join(", ")
+                ) :
+                (
+                    this.config.methods === "*" ? "*" : this.config.methods
+                )
         };
 
         if (this.config.exposedHeaders.length > 0) headers["Access-Control-Expose-Headers"] = this.config.exposedHeaders.join(", ");
