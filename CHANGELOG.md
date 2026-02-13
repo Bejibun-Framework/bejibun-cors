@@ -12,7 +12,6 @@ All notable changes to this project will be documented in this file.
 
 ### ❤️Contributors
 - Havea Crenata ([@crenata](https://github.com/crenata))
-- Ghulje ([@ghulje](https://github.com/ghulje))
 
 **Full Changelog**: https://github.com/Bejibun-Framework/bejibun-cors/blob/master/CHANGELOG.md
 
