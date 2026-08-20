@@ -8,7 +8,7 @@ export type CorsHeader = {
     "Access-Control-Expose-Headers"?: string;
     "Access-Control-Allow-Credentials"?: string;
     "Access-Control-Max-Age"?: string;
-}
+};
 
 export default class CorsBuilder {
     protected config: any;
@@ -23,23 +23,24 @@ export default class CorsBuilder {
     public init(): any {
         const headers: CorsHeader = {
             "Access-Control-Allow-Origin": this.config.origin,
-            "Access-Control-Allow-Headers": Array.isArray(this.config.allowedHeaders) ?
-                (
-                    this.config.allowedHeaders.includes("*") ? "*" : this.config.allowedHeaders.join(", ")
-                ) :
-                (
-                    this.config.allowedHeaders === "*" ? "*" : this.config.allowedHeaders
-                ),
-            "Access-Control-Allow-Methods": Array.isArray(this.config.methods) ?
-                (
-                    this.config.methods.includes("*") ? "*" : this.config.methods.join(", ")
-                ) :
-                (
-                    this.config.methods === "*" ? "*" : this.config.methods
-                )
+            "Access-Control-Allow-Headers": Array.isArray(this.config.allowedHeaders)
+                ? this.config.allowedHeaders.includes("*")
+                    ? "*"
+                    : this.config.allowedHeaders.join(", ")
+                : this.config.allowedHeaders === "*"
+                  ? "*"
+                  : this.config.allowedHeaders,
+            "Access-Control-Allow-Methods": Array.isArray(this.config.methods)
+                ? this.config.methods.includes("*")
+                    ? "*"
+                    : this.config.methods.join(", ")
+                : this.config.methods === "*"
+                  ? "*"
+                  : this.config.methods
         };
 
-        if (this.config.exposedHeaders.length > 0) headers["Access-Control-Expose-Headers"] = this.config.exposedHeaders.join(", ");
+        if (this.config.exposedHeaders.length > 0)
+            headers["Access-Control-Expose-Headers"] = this.config.exposedHeaders.join(", ");
 
         if (this.config.credentials) headers["Access-Control-Allow-Credentials"] = "true";
 
