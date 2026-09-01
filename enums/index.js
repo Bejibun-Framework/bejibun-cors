@@ -1,1 +1,4 @@
-export * from "../enums/CorsHeaderEnum";
+/**
+ * Re-exports the CORS header enums.
+ */
+export { default as CorsHeaderEnum } from "../enums/CorsHeaderEnum";

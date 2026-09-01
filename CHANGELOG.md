@@ -3,6 +3,39 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [v0.1.19](https://github.com/Bejibun-Framework/bejibun-cors/compare/v0.1.18...v0.1.19) - 2026-09-01
+
+### 🩹 Fixes
+- Fixed `Cors.init` performing synchronous filesystem I/O (`fs.existsSync` + `require()`) on **every** invocation
+
+### 📖 Changes
+- `Cors` facade now returns a lazily cached singleton builder instead of allocating a new one per access
+- `CorsBuilder` loads the CORS configuration once (static cache) and reuses computed headers across requests
+- Extracted shared array/variables wildcard normalization into an `arrayToHeader()` helper
+
+### 🧪 Tests
+- Added test suite (7 tests across 1 file) covering `Cors.init` caching, default config headers, and builder reuse
+
+### ⚡ Benchmarks
+- Added benchmark suite comparing baseline (`@bejibun/cors@0.1.18`) vs optimized build
+- **Cors.init throughput: 365.36x faster** (1.4ms vs 520.3ms, ~140M ops/s)
+
+### 📦 Dependencies
+
+- Bumped [`@bejibun/app`](https://github.com/Bejibun-Framework/bejibun-app) from `^0.1.25` to `^0.1.26`
+- Removed [`@bejibun/utils`](https://github.com/Bejibun-Framework/bejibun-utils) `^0.1.29`
+- Bumped `@types/bun` (devDependency) from `^1.3.14` to `^1.4.0`
+- Bumped `tsc-alias` (devDependency) from `^1.9.2` to `^1.9.3`
+- Bumped `eslint` (devDependency) from `^10.8.1` to `^10.9.1`
+- Bumped `typescript-eslint` (devDependency) from `^8.67.0` to `^8.69.0`
+
+### ❤️Contributors
+- Havea Crenata ([@crenata](https://github.com/crenata))
+
+**Full Changelog**: https://github.com/Bejibun-Framework/bejibun-cors/blob/master/CHANGELOG.md
+
+---
+
 ## [v0.1.18](https://github.com/Bejibun-Framework/bejibun-cors/compare/v0.1.17...v0.1.18) - 2026-08-20
 
 ### 🩹 Fixes
