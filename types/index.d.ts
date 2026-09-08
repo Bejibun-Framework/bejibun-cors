@@ -1,1 +1,1 @@
-export * from "../types/cors";
+export * from "./cors";
